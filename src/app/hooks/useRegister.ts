@@ -5,7 +5,7 @@ import { RegisterInput } from "@/lib/validations/auth";
 export const useRegister = () => {
     return useMutation({
         mutationFn: async (data: RegisterInput) => {
-            const res = await fetch("https://exam.elevateegy.com/api/v1/auth/signup", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

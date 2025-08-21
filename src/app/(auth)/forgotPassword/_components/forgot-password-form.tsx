@@ -23,12 +23,14 @@ import { ForgotPasswordInput, forgotPasswordSchema, ResetPasswordInput, resetPas
 import Image from "next/image";
 import Link from "next/link";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
-import CountdownTimer from "./CountdownTimer";
+import CountdownTimer from "./countdownTimer";
+import { useCountdownStore } from "@/store/useCountdownStore";
 
 
 export function ForgotPasswordForm() {
-    const [step, setStep] = useState<1 | 2 | 3>(2);
+    const [step, setStep] = useState<1 | 2 | 3>(1);
     const [email, setEmail] = useState("");
+    const startCountdown = useCountdownStore((s) => s.startCountdown);
 
     // Hooks
     const forgotPasswordMutation = useForgotPassword();
@@ -51,18 +53,13 @@ export function ForgotPasswordForm() {
         defaultValues: { email: "", newPassword: "" },
     });
 
-    // sync email from step 1 into resetForm
-    useEffect(() => {
-        if (email) {
-            resetForm.setValue("email", email);
-        }
-    }, [email, resetForm]);
 
     // Handlers
     const handleEmailSubmit = (data: ForgotPasswordInput) => {
         forgotPasswordMutation.mutate(data.email, {
             onSuccess: () => {
                 setEmail(data.email);
+                startCountdown(60);
                 setStep(2);
             },
         });
@@ -84,6 +81,13 @@ export function ForgotPasswordForm() {
         });
     };
 
+
+    useEffect(() => {
+        if (step !== 1) emailForm.reset();
+        if (step !== 2) codeForm.reset();
+        if (step !== 3) resetForm.reset();
+    }, [step]);
+
     return (
         <div className="flex flex-col justify-center gap-10 font-sans">
 
@@ -104,7 +108,6 @@ export function ForgotPasswordForm() {
                             onSubmit={emailForm.handleSubmit(handleEmailSubmit)}
                             className="space-y-10 w-[452px]"
                         >
-                            {/* <XCircle onClick={() => setStep(1)} className="h-5 w-5  text-red-600" /> */}
                             <FormField
                                 control={emailForm.control}
                                 name="email"
@@ -193,7 +196,6 @@ export function ForgotPasswordForm() {
                                 onSubmit={codeForm.handleSubmit(handleCodeSubmit)}
                                 className="space-y-10 w-[452px]"
                             >
-
                                 <div className="flex flex-col gap-6">
                                     <FormField
                                         control={codeForm.control}
@@ -274,14 +276,28 @@ export function ForgotPasswordForm() {
             {
                 step === 3 && (
                     <Form {...resetForm}>
-                        <h1 className="font-bold text-[30px] leading-[1] pb-6">
-                            Forgot Password
-                        </h1>
+                        <span onClick={() => setStep(2)} className="border boder-[1.5px] w-fit p-2 cursor-pointer">
+                            <Image
+                                src="/images/move-left.png"
+                                alt="Previous Icon"
+                                width={24}
+                                height={24}
+                            />
+                        </span>
+
+                        <div className="flex flex-col gap-3">
+                            <h1 className="font-bold text-[30px] leading-[1] ">
+                                Create a New Password
+                            </h1>
+                            <h2 className="font-mono font-normal not-italic text-[16px] leading-[100%] tracking-[0px] align-middle text-[#6B7280]">
+                                Create a new strong password for your account.
+                            </h2>
+                        </div>
+
                         <form
                             onSubmit={resetForm.handleSubmit(handleResetSubmit)}
-                            className="space-y-4 w-[452px]"
+                            className="flex flex-col gap-4 w-[452px] font-mono"
                         >
-                            <XCircle onClick={() => setStep(2)} className="h-5 w-5  text-red-600" />
                             {/* Email (read-only) */}
                             <FormField
                                 control={resetForm.control}
@@ -290,7 +306,10 @@ export function ForgotPasswordForm() {
                                     <FormItem>
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
-                                            <Input {...field} disabled />
+                                            <Input
+                                                placeholder="user@example.com"
+                                                {...field}
+                                            />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -322,10 +341,14 @@ export function ForgotPasswordForm() {
 
                             <Button
                                 type="submit"
-                                className="w-full h-12 bg-primary"
+                                className="w-full h-12 !mt-6 bg-primary flex items-center justify-center gap-2 font-mono"
                                 disabled={resetPasswordMutation.isPending}
                             >
-                                {resetPasswordMutation.isPending ? "Loading..." : "Reset Password"}
+                                {resetPasswordMutation.isPending ? (
+                                    "Loading..."
+                                ) : (
+                                    "Update Password"
+                                )}
                             </Button>
                         </form>
                     </Form>

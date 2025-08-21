@@ -1,6 +1,5 @@
 import React from 'react'
 import { LoginForm } from './_components/login-form'
-import LeftSideAuth from '@/app/(auth)/_components/leftSide-auth';
 
 export const metadata = {
     title: "Login | Exam App",

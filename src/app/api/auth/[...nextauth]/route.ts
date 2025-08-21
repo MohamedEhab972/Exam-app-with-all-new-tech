@@ -1,4 +1,3 @@
-// app/api/auth/[...nextauth]/route.ts
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -15,7 +14,7 @@ const handler = NextAuth({
             },
             async authorize(credentials) {
                 try {
-                    const res = await fetch("https://exam.elevateegy.com/api/v1/auth/signin", {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/signin`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({

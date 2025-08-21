@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 
-const API_BASE = "https://exam.elevateegy.com/api/v1/auth";
+
 
 // Forgot Password
 export const useForgotPassword = () => {
     return useMutation({
         mutationFn: async (email: string) => {
-            const res = await fetch(`${API_BASE}/forgotPassword`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/forgotPassword`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -28,7 +28,7 @@ export const useForgotPassword = () => {
 export const useVerifyResetCode = () => {
     return useMutation({
         mutationFn: async (resetCode: string) => {
-            const res = await fetch(`${API_BASE}/verifyResetCode`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/verifyResetCode`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export const useResetPassword = () => {
             email: string;
             newPassword: string;
         }) => {
-            const res = await fetch(`${API_BASE}/resetPassword`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/resetPassword`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

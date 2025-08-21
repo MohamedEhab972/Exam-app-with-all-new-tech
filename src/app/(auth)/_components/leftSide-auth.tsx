@@ -1,20 +1,23 @@
+import { BookOpenCheck, Brain, FolderCode, RectangleEllipsis } from "lucide-react";
 import Head from "next/head";
-import Image from "next/image";
 
 const information = [
     {
         title: "Tailored Diplomas",
-        desc: "Choose from specialized tracks like Frontend, Backend, and Mobile Development."
+        desc: "Choose from specialized tracks like Frontend, Backend, and Mobile Development.",
+        icon: Brain,
     },
     {
         title: "Focused Exams",
-        desc: "Access topic-specific tests including HTML, CSS, JavaScript, and more."
+        desc: "Access topic-specific tests including HTML, CSS, JavaScript, and more.",
+        icon: BookOpenCheck,
     },
     {
         title: "Smart Multi-Step Forms",
-        desc: "Choose from specialized tracks like Frontend, Backend, and Mobile Development."
-    }
-]
+        desc: "Choose from specialized tracks like Frontend, Backend, and Mobile Development.",
+        icon: RectangleEllipsis,
+    },
+];
 
 export default function LeftSideAuth() {
     return (
@@ -35,7 +38,7 @@ export default function LeftSideAuth() {
                 <div className="w-[458px] h-[792px] flex flex-col justify-center gap-32">
                     <header className="flex gap-3 items-center">
                         <span className="text-primary" aria-hidden="true">
-                            icon
+                            <FolderCode />
                         </span>
                         <h1 className="geist-mono-semibold font-mono !m-0 text-primary text-lg">
                             Exam App
@@ -51,10 +54,10 @@ export default function LeftSideAuth() {
                             {information.map((item, index) => (
                                 <li key={index} className="flex gap-5">
                                     <span
-                                        className="text-primary w-9 h-9 flex items-center justify-center border-[1.5px] border-primary"
+                                        className="text-primary w-9 h-9 flex items-center justify-center border-[1.5px] border-primary aspect-square"
                                         aria-hidden="true"
                                     >
-                                        icon
+                                        <item.icon className="w-5 h-5" />
                                     </span>
                                     <div className="flex flex-col gap-[10px]">
                                         <h3 className="geist-mono-semibold font-mono text-primary">
