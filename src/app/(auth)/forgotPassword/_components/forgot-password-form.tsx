@@ -18,19 +18,20 @@ import {
     useForgotPassword,
     useVerifyResetCode,
     useResetPassword,
-} from "@/app/hooks/useForgotPassword";
+} from "@/app/(auth)/_hooks/use-forgot-password";
 import { ForgotPasswordInput, forgotPasswordSchema, ResetPasswordInput, resetPasswordSchema, VerifyCodeInput, verifyCodeSchema } from "@/lib/validations/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
 import CountdownTimer from "./countdownTimer";
 import { useCountdownStore } from "@/store/useCountdownStore";
+import { useRouter } from "next/navigation";
 
 
 export function ForgotPasswordForm() {
     const [step, setStep] = useState<1 | 2 | 3>(1);
-    const [email, setEmail] = useState("");
     const startCountdown = useCountdownStore((s) => s.startCountdown);
+    const router = useRouter();
 
     // Hooks
     const forgotPasswordMutation = useForgotPassword();
@@ -58,7 +59,6 @@ export function ForgotPasswordForm() {
     const handleEmailSubmit = (data: ForgotPasswordInput) => {
         forgotPasswordMutation.mutate(data.email, {
             onSuccess: () => {
-                setEmail(data.email);
                 startCountdown(60);
                 setStep(2);
             },
@@ -76,7 +76,7 @@ export function ForgotPasswordForm() {
     const handleResetSubmit = (data: ResetPasswordInput) => {
         resetPasswordMutation.mutate(data, {
             onSuccess: () => {
-                alert("Password reset successfully!");
+                router.push("/login");
             },
         });
     };

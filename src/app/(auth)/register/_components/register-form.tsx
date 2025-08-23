@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useRegister } from "@/app/hooks/useRegister";
+import { useRegister } from "@/app/(auth)/_hooks/use-register";
 import { XCircle } from "lucide-react";
 import { PhoneInput } from "./phone-input";
 

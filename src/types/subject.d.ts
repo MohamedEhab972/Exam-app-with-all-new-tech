@@ -3,3 +3,13 @@ export type Subject = {
     name: string;
     icon: string;
 };
+
+export interface SubjectsResponse {
+    message: string;
+    metadata: {
+        currentPage: number;
+        numberOfPages: number;
+        limit: number;
+    };
+    subjects: Subject[];
+}

@@ -1,6 +1,6 @@
 "use client"
 
-import { EllipsisVertical, FolderCode, GraduationCap, Home, Inbox, LogOut, Search, Settings, UserRound } from "lucide-react"
+import { EllipsisVertical, FolderCode, GraduationCap, LogOut, UserRound } from "lucide-react"
 import {
     Sidebar,
     SidebarContent,
@@ -19,7 +19,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const items = [
-    { title: "Diplomas", url: "/diplomas", icon: GraduationCap },
+    { title: "Diplomas", url: "/", icon: GraduationCap },
     { title: "Account Settings", url: "#", icon: UserRound },
 ]
 
@@ -51,16 +51,24 @@ export function AppSidebar() {
 
                 <SidebarContent className="flex-1 mt-15">
                     <SidebarGroup>
-                        {/* <SidebarGroupLabel></SidebarGroupLabel> */}
                         <SidebarGroupContent>
                             <SidebarMenu>
                                 {items.map((item) => {
-                                    const isActive = pathname.toLowerCase() === `/${item.title.toLowerCase()}`;
+                                    let isActive = false;
+
+                                    if (item.title === "Diplomas") {
+                                        isActive = pathname === "/" || pathname.startsWith("/exams");
+                                    }
+
+                                    if (item.title === "Account Settings") {
+                                        isActive = pathname.startsWith("/account");
+                                    }
+
                                     return (
                                         <SidebarMenuItem
                                             key={item.title}
                                             className={`p-4 border text-primary geist-mono-regular 
-                                            ${isActive ? "border-blue-500 bg-[#DBEAFE]" : "border-transparent"} `}
+                                             ${isActive ? "border-blue-500 bg-[#DBEAFE]" : "border-transparent"} `}
                                         >
                                             <SidebarMenuButton asChild>
                                                 <Link
@@ -74,6 +82,8 @@ export function AppSidebar() {
                                         </SidebarMenuItem>
                                     );
                                 })}
+
+
                             </SidebarMenu>
                         </SidebarGroupContent>
                     </SidebarGroup>

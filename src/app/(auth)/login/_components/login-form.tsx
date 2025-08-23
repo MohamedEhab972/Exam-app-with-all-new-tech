@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useLogin } from "@/app/hooks/useLogin";
+import { useLogin } from "@/app/(auth)/_hooks/use-login";
 import { XCircle } from "lucide-react";
 
 export function LoginForm() {
