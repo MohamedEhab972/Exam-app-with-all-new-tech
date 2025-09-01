@@ -10,7 +10,6 @@ import Link from "next/link";
 
 
 export default function SubjectsList({ subjects, metadata }: SubjectsResponse) {
-    console.log("SubjectsList rendered with subjects:", subjects);
     
     const [displayed, setDisplayed] = useState<Subject[]>([]);
     const [hasMore, setHasMore] = useState(true);

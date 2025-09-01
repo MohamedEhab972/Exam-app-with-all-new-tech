@@ -44,6 +44,7 @@ export default function LeftSideAuth() {
                             Exam App
                         </h1>
                     </header>
+                    
 
                     <main className="flex flex-col gap-[60px]">
                         <h2 className="font-sans font-bold text-[30px] leading-[1] text-[#1F2937]">

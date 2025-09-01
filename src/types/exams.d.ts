@@ -19,3 +19,12 @@ export interface ExamsResponse {
     metadata: ExamsMetadata;
     exams: Exam[];
 }
+
+
+type AnswerPayload = {
+    answers: {
+        questionId: string;
+        correct: string;
+    }[];
+    time: number;
+};

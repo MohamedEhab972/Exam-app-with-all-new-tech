@@ -1,4 +1,4 @@
-import { getAccessToken } from "@/lib/auth.token";
+import { getAccessToken } from "@/lib/utils/auth.util";
 import { SubjectsResponse } from "@/types/subject";
 
 

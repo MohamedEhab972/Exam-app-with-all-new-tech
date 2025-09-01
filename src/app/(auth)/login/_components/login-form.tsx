@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { loginSchema, LoginInput } from "@/lib/validations/auth";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,8 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useLogin } from "@/app/(auth)/_hooks/use-login";
 import { XCircle } from "lucide-react";
+import { LoginInput, loginSchema } from "@/lib/schemes/auth.schema";
+import { useLogin } from "../_hooks/use-login";
 
 export function LoginForm() {
     const router = useRouter();

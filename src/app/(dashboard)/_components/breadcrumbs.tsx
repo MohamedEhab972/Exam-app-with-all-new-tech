@@ -1,12 +1,12 @@
-// src/app/(dashboard)/_components/breadcrumbs.tsx
 "use client";
 
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { useExamStore } from "@/store/useExamStore";
 
 export default function Breadcrumbs() {
     const pathname = usePathname();
-    const segments = pathname.split("/").filter(Boolean); // remove empty values
+    const segments = pathname.split("/").filter(Boolean);
+    const { quizTitle } = useExamStore();
 
     return (
         <p className="geist-mono-regular text-[#9CA3AF] p-4">
@@ -14,21 +14,36 @@ export default function Breadcrumbs() {
                 "Home"
             ) : (
                 <>
-                    <Link href="/" className="hover:underline">Home</Link>
+                    <span className="capitalize">Home</span>
                     {segments.map((seg, idx) => {
                         const isLast = idx === segments.length - 1;
-                        const href = "/" + segments.slice(0, idx + 1).join("/");
+
+                        if (seg === "exams" && isLast) {
+                            return (
+                                <span key={seg}>
+                                    {" / "}
+                                    <span className="text-primary capitalize">{seg}</span>
+                                </span>
+                            );
+                        }
+
+                        if (isLast && segments.includes("exams")) {
+                            return (
+                                <span key={seg}>
+                                    {" / "}
+                                    <span className="text-primary capitalize">
+                                        {quizTitle} / Questions
+                                    </span>
+                                </span>
+                            );
+                        }
 
                         return (
                             <span key={seg}>
                                 {" / "}
-                                {isLast ? (
-                                    <span className="text-primary capitalize">{seg}</span>
-                                ) : (
-                                    <Link href={href} className="hover:underline capitalize">
-                                        {seg}
-                                    </Link>
-                                )}
+                                <span className={`capitalize ${isLast ? "text-primary" : ""}`}>
+                                    {seg}
+                                </span>
                             </span>
                         );
                     })}

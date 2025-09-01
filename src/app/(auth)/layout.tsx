@@ -11,13 +11,18 @@ export default function AuthLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex h-screen backdrop-blur-[200px]">
-            <section className="w-6/12">
+        <main className="flex h-screen backdrop-blur-[200px]">
+
+            <aside className="w-6/12">
                 <LeftSideAuth />
-            </section>
-            <section className="flex justify-center items-center w-6/12">
+            </aside>
+
+            <section
+                className="flex justify-center items-center w-6/12"
+                aria-label="Authentication Form"
+            >
                 {children}
             </section>
-        </div>
+        </main>
     );
 }

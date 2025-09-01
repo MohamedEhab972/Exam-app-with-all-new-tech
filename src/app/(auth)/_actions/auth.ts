@@ -1,6 +1,6 @@
 "use server";
 
-import { ForgotPasswordInput, RegisterInput, ResetPasswordInput, VerifyCodeInput } from "@/lib/validations/auth";
+import { ForgotPasswordInput, ProfileInput, RegisterInput, ResetPasswordInput, UserInput, VerifyCodeInput } from "@/lib/schemes/auth.schema";
 
 export async function forgotPassword(email: ForgotPasswordInput["email"]) {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/auth/forgotPassword`, {
@@ -48,8 +48,7 @@ export async function resetPassword(data: ResetPasswordInput) {
 }
 
 
-
-export async function registerAction(data: RegisterInput) {
+export async function registerAction(data: UserInput) {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/auth/signup`, {
             method: "POST",

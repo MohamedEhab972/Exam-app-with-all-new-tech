@@ -10,7 +10,7 @@ export async function middleware(req: NextRequest) {
     const isAuthRoute =
         pathname.startsWith("/login") ||
         pathname.startsWith("/register") ||
-        pathname.startsWith("/forgotPassword");
+        pathname.startsWith("/forgot-password");
 
     if (!token && !isAuthRoute) {
         const url = req.nextUrl.clone();

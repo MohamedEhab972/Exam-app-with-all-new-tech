@@ -1,22 +1,33 @@
 import { Suspense } from "react";
-import Titlebar from "../_components/titlebar";
 import LoadingSubjects from "../loading";
 import ExamList from "./_components/exams-list";
-import BackButton from "../_components/back-button";
-import { getExams } from "@/lib/apis/exams.api";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Exams",
+    description: "View and access the list of available exams for your subjects.",
+    keywords: ["exams", "subjects", "education", "assessment"],
+    openGraph: {
+        title: "Exams",
+        description: "View and access the list of available exams for your subjects.",
+        type: "website",
+        url: "http://localhost:3000//exams",
+        images: [
+            {
+                url: "https://via.placeholder.com/1200x630.png?text=Exams",
+                width: 1200,
+                height: 630,
+                alt: "Exams",
+            },
+        ],
+    },
+};
+
 
 export default async function Page() {
-    const exams = await getExams();
-
     return (
-        <>
-            <div className="flex items-center gap-4">
-                <BackButton />
-                <Titlebar />
-            </div>
-            <Suspense fallback={<LoadingSubjects />}>
-                <ExamList exams={exams} />
-            </Suspense>
-        </>
+        <Suspense fallback={<LoadingSubjects />}>
+            <ExamList />
+        </Suspense>
     );
 }

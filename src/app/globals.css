@@ -11,6 +11,10 @@
   .geist-mono-regular {
     @apply font-mono font-normal text-[16px] leading-[1] tracking-[0px] align-middle;
   }
+
+  .geist-mono-medium {
+    @apply font-mono font-medium text-[18px] leading-[100%] tracking-[0px] align-middle;
+  }
 }
 
 

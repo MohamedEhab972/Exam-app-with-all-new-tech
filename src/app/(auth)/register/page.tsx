@@ -1,6 +1,5 @@
+import { FormComponent } from "@/components/ui/form-component";
 import React from "react";
-import LeftSideAuth from "@/app/(auth)/_components/leftSide-auth";
-import { RegisterForm } from "./_components/register-form";
 
 export const metadata = {
     title: "Register | Exam App",
@@ -10,11 +9,11 @@ export const metadata = {
         title: "Register | Exam App",
         description:
             "Create your account on Exam App and start your learning journey with smart exams and tailored diplomas.",
-        url: "https://yourdomain.com/register",
+        url: "http://localhost:3000/register", 
         siteName: "Exam App",
         images: [
             {
-                url: "https://yourdomain.com/og-image.png",
+                url: "https://via.placeholder.com/1200x630.png?text=register", 
                 width: 1200,
                 height: 630,
                 alt: "Exam App Register",
@@ -29,8 +28,11 @@ export const metadata = {
     },
 };
 
+
 export default function Page() {
-
-    return <RegisterForm />;
-
+    return (
+        <article className="w-full max-w-md" aria-labelledby="register-title">
+            <FormComponent />
+        </article>
+    );
 }
